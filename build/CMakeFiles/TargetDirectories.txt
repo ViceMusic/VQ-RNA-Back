@@ -1,0 +1,3 @@
+/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles/MyExecutable.dir
+/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles/edit_cache.dir
+/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles/rebuild_cache.dir
