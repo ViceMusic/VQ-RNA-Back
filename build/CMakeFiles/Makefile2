@@ -54,10 +54,10 @@ RM = /home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/bin/cmake -
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tiange/Desktop/openwork/testcpp
+CMAKE_SOURCE_DIR = /home/tiange/Desktop/VQ-RNA-Back
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tiange/Desktop/openwork/testcpp/build
+CMAKE_BINARY_DIR = /home/tiange/Desktop/VQ-RNA-Back/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/MyExecutable.dir/clean
 CMakeFiles/MyExecutable.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyExecutable.dir/build.make CMakeFiles/MyExecutable.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyExecutable.dir/build.make CMakeFiles/MyExecutable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target MyExecutable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target MyExecutable"
 .PHONY : CMakeFiles/MyExecutable.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MyExecutable.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tiange/Desktop/openwork/testcpp/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MyExecutable.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tiange/Desktop/openwork/testcpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles 0
 .PHONY : CMakeFiles/MyExecutable.dir/rule
 
 # Convenience name for target.

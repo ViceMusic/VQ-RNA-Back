@@ -1,5 +1,5 @@
 CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o: \
- /home/tiange/Desktop/openwork/testcpp/src/operatelog.cpp \
+ /home/tiange/Desktop/VQ-RNA-Back/src/operatelog.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -177,4 +177,4 @@ CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o: \
  /usr/include/c++/11/bits/parse_numbers.h /usr/include/c++/11/mutex \
  /usr/include/c++/11/bits/std_mutex.h \
  /usr/include/c++/11/bits/unique_lock.h \
- /home/tiange/Desktop/openwork/testcpp/include/operatelog.h
+ /home/tiange/Desktop/VQ-RNA-Back/include/operatelog.h

@@ -1,6 +1,6 @@
 CMakeFiles/MyExecutable.dir/src/main.cpp.o: \
- /home/tiange/Desktop/openwork/testcpp/src/main.cpp \
- /usr/include/stdc-predef.h /usr/include/c++/11/iostream \
+ /home/tiange/Desktop/VQ-RNA-Back/src/main.cpp /usr/include/stdc-predef.h \
+ /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -144,8 +144,8 @@ CMakeFiles/MyExecutable.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
- /home/tiange/Desktop/openwork/testcpp/include/test.h \
- /home/tiange/Desktop/openwork/testcpp/include/operatehttp.h \
+ /home/tiange/Desktop/VQ-RNA-Back/include/test.h \
+ /home/tiange/Desktop/VQ-RNA-Back/include/operatehttp.h \
  /usr/include/c++/11/map /usr/include/c++/11/bits/stl_tree.h \
  /usr/include/c++/11/ext/aligned_buffer.h \
  /usr/include/c++/11/bits/stl_map.h /usr/include/c++/11/tuple \

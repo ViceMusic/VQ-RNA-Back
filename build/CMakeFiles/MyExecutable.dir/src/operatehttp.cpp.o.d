@@ -1,5 +1,5 @@
 CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o: \
- /home/tiange/Desktop/openwork/testcpp/src/operatehttp.cpp \
+ /home/tiange/Desktop/VQ-RNA-Back/src/operatehttp.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -188,7 +188,7 @@ CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h \
- /home/tiange/Desktop/openwork/testcpp/include/json.hpp \
+ /home/tiange/Desktop/VQ-RNA-Back/include/json.hpp \
  /usr/include/c++/11/algorithm /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \
@@ -297,7 +297,7 @@ CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o: \
  /usr/include/openssl/param_build.h \
  /usr/local/include/jwt-cpp/traits/kazuho-picojson/defaults.h \
  /usr/local/include/jwt-cpp/traits/kazuho-picojson/traits.h \
- /home/tiange/Desktop/openwork/testcpp/include/operatelog.h \
+ /home/tiange/Desktop/VQ-RNA-Back/include/operatelog.h \
  /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
  /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/mutex \
  /usr/include/c++/11/bits/std_mutex.h \

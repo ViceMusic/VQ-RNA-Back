@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/tiange/Desktop/openwork/testcpp/include
+CXX_INCLUDES = -I/home/tiange/Desktop/VQ-RNA-Back/include
 
 CXX_FLAGS = -std=gnu++11
 

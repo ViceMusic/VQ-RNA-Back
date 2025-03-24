@@ -1,7 +1,6 @@
 CMakeFiles/MyExecutable.dir/src/test.cpp.o: \
- /home/tiange/Desktop/openwork/testcpp/src/test.cpp \
- /usr/include/stdc-predef.h \
- /home/tiange/Desktop/openwork/testcpp/include/test.h \
+ /home/tiange/Desktop/VQ-RNA-Back/src/test.cpp /usr/include/stdc-predef.h \
+ /home/tiange/Desktop/VQ-RNA-Back/include/test.h \
  /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

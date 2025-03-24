@@ -1,4 +1,4 @@
-# Install script for directory: /home/tiange/Desktop/openwork/testcpp
+# Install script for directory: /home/tiange/Desktop/VQ-RNA-Back
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/tiange/Desktop/openwork/testcpp/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/tiange/Desktop/VQ-RNA-Back/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

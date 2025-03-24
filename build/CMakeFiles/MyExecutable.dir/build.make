@@ -53,10 +53,10 @@ RM = /home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/bin/cmake -
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tiange/Desktop/openwork/testcpp
+CMAKE_SOURCE_DIR = /home/tiange/Desktop/VQ-RNA-Back
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tiange/Desktop/openwork/testcpp/build
+CMAKE_BINARY_DIR = /home/tiange/Desktop/VQ-RNA-Back/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/MyExecutable.dir/depend.make
@@ -70,60 +70,60 @@ include CMakeFiles/MyExecutable.dir/progress.make
 include CMakeFiles/MyExecutable.dir/flags.make
 
 CMakeFiles/MyExecutable.dir/src/main.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
-CMakeFiles/MyExecutable.dir/src/main.cpp.o: /home/tiange/Desktop/openwork/testcpp/src/main.cpp
+CMakeFiles/MyExecutable.dir/src/main.cpp.o: /home/tiange/Desktop/VQ-RNA-Back/src/main.cpp
 CMakeFiles/MyExecutable.dir/src/main.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MyExecutable.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/main.cpp.o -MF CMakeFiles/MyExecutable.dir/src/main.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/main.cpp.o -c /home/tiange/Desktop/openwork/testcpp/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MyExecutable.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/main.cpp.o -MF CMakeFiles/MyExecutable.dir/src/main.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/main.cpp.o -c /home/tiange/Desktop/VQ-RNA-Back/src/main.cpp
 
 CMakeFiles/MyExecutable.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyExecutable.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiange/Desktop/openwork/testcpp/src/main.cpp > CMakeFiles/MyExecutable.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiange/Desktop/VQ-RNA-Back/src/main.cpp > CMakeFiles/MyExecutable.dir/src/main.cpp.i
 
 CMakeFiles/MyExecutable.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyExecutable.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiange/Desktop/openwork/testcpp/src/main.cpp -o CMakeFiles/MyExecutable.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiange/Desktop/VQ-RNA-Back/src/main.cpp -o CMakeFiles/MyExecutable.dir/src/main.cpp.s
 
 CMakeFiles/MyExecutable.dir/src/test.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
-CMakeFiles/MyExecutable.dir/src/test.cpp.o: /home/tiange/Desktop/openwork/testcpp/src/test.cpp
+CMakeFiles/MyExecutable.dir/src/test.cpp.o: /home/tiange/Desktop/VQ-RNA-Back/src/test.cpp
 CMakeFiles/MyExecutable.dir/src/test.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MyExecutable.dir/src/test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/test.cpp.o -MF CMakeFiles/MyExecutable.dir/src/test.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/test.cpp.o -c /home/tiange/Desktop/openwork/testcpp/src/test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MyExecutable.dir/src/test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/test.cpp.o -MF CMakeFiles/MyExecutable.dir/src/test.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/test.cpp.o -c /home/tiange/Desktop/VQ-RNA-Back/src/test.cpp
 
 CMakeFiles/MyExecutable.dir/src/test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyExecutable.dir/src/test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiange/Desktop/openwork/testcpp/src/test.cpp > CMakeFiles/MyExecutable.dir/src/test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiange/Desktop/VQ-RNA-Back/src/test.cpp > CMakeFiles/MyExecutable.dir/src/test.cpp.i
 
 CMakeFiles/MyExecutable.dir/src/test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyExecutable.dir/src/test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiange/Desktop/openwork/testcpp/src/test.cpp -o CMakeFiles/MyExecutable.dir/src/test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiange/Desktop/VQ-RNA-Back/src/test.cpp -o CMakeFiles/MyExecutable.dir/src/test.cpp.s
 
 CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
-CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o: /home/tiange/Desktop/openwork/testcpp/src/operatehttp.cpp
+CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o: /home/tiange/Desktop/VQ-RNA-Back/src/operatehttp.cpp
 CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o -MF CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o -c /home/tiange/Desktop/openwork/testcpp/src/operatehttp.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o -MF CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.o -c /home/tiange/Desktop/VQ-RNA-Back/src/operatehttp.cpp
 
 CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiange/Desktop/openwork/testcpp/src/operatehttp.cpp > CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiange/Desktop/VQ-RNA-Back/src/operatehttp.cpp > CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.i
 
 CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiange/Desktop/openwork/testcpp/src/operatehttp.cpp -o CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiange/Desktop/VQ-RNA-Back/src/operatehttp.cpp -o CMakeFiles/MyExecutable.dir/src/operatehttp.cpp.s
 
 CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
-CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o: /home/tiange/Desktop/openwork/testcpp/src/operatelog.cpp
+CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o: /home/tiange/Desktop/VQ-RNA-Back/src/operatelog.cpp
 CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o -MF CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o -c /home/tiange/Desktop/openwork/testcpp/src/operatelog.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o -MF CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/operatelog.cpp.o -c /home/tiange/Desktop/VQ-RNA-Back/src/operatelog.cpp
 
 CMakeFiles/MyExecutable.dir/src/operatelog.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyExecutable.dir/src/operatelog.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiange/Desktop/openwork/testcpp/src/operatelog.cpp > CMakeFiles/MyExecutable.dir/src/operatelog.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiange/Desktop/VQ-RNA-Back/src/operatelog.cpp > CMakeFiles/MyExecutable.dir/src/operatelog.cpp.i
 
 CMakeFiles/MyExecutable.dir/src/operatelog.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyExecutable.dir/src/operatelog.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiange/Desktop/openwork/testcpp/src/operatelog.cpp -o CMakeFiles/MyExecutable.dir/src/operatelog.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiange/Desktop/VQ-RNA-Back/src/operatelog.cpp -o CMakeFiles/MyExecutable.dir/src/operatelog.cpp.s
 
 # Object files for target MyExecutable
 MyExecutable_OBJECTS = \
@@ -143,7 +143,7 @@ MyExecutable: CMakeFiles/MyExecutable.dir/build.make
 MyExecutable: /usr/lib/x86_64-linux-gnu/libssl.so
 MyExecutable: /usr/lib/x86_64-linux-gnu/libcrypto.so
 MyExecutable: CMakeFiles/MyExecutable.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/tiange/Desktop/openwork/testcpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable MyExecutable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable MyExecutable"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyExecutable.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -155,6 +155,6 @@ CMakeFiles/MyExecutable.dir/clean:
 .PHONY : CMakeFiles/MyExecutable.dir/clean
 
 CMakeFiles/MyExecutable.dir/depend:
-	cd /home/tiange/Desktop/openwork/testcpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tiange/Desktop/openwork/testcpp /home/tiange/Desktop/openwork/testcpp /home/tiange/Desktop/openwork/testcpp/build /home/tiange/Desktop/openwork/testcpp/build /home/tiange/Desktop/openwork/testcpp/build/CMakeFiles/MyExecutable.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/tiange/Desktop/VQ-RNA-Back/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tiange/Desktop/VQ-RNA-Back /home/tiange/Desktop/VQ-RNA-Back /home/tiange/Desktop/VQ-RNA-Back/build /home/tiange/Desktop/VQ-RNA-Back/build /home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles/MyExecutable.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/MyExecutable.dir/depend
 
