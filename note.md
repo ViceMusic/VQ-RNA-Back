@@ -639,7 +639,9 @@ HTTP 协议版本：如 HTTP/1.1、HTTP/2 等。
 
 
 sudo apt-get install libssl-dev
-内涵openssl
+内涵openssl, 但是仍然没支持上去
+
+
 
 
 ## 需要复习的大概就是网络链接和线程池， 以及三种多路复用机制
@@ -647,3 +649,16 @@ sudo apt-get install libssl-dev
 
 
 # 关于文档内容
+
+## 安装SQLiteCpp
+
+在github上下载对应的库， 然后安装到了/usr/local目录下面
+
+
+
+问题在
+
+CMake Error at CMakeLists.txt:37 (add_executable):
+  Target "MyExecutable" links to target "SQLite3::SQLite3" but the target was
+  not found.  Perhaps a find_package() call is missing for an IMPORTED
+  target, or an ALIAS target is missing?

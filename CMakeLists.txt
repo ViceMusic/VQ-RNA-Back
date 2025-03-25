@@ -16,6 +16,11 @@ include_directories(include)
 
 # 查找 OpenSSL 包
 find_package(OpenSSL REQUIRED)
+# 查找 SQLite3 库
+find_package(SQLite3 REQUIRED)
+# 查找 SQLiteCpp 库
+find_package(SQLiteCpp REQUIRED)
+
 
 # 找到 cpp-jwt 库
 # find_package(cpp-jwt REQUIRED)
@@ -32,7 +37,7 @@ set(SOURCES
 add_executable(MyExecutable  ${SOURCES})
 
 # 链接 OpenSSL 库
-target_link_libraries(MyExecutable OpenSSL::SSL OpenSSL::Crypto)
+target_link_libraries(MyExecutable OpenSSL::SSL OpenSSL::Crypto SQLite3::SQLite3 SQLiteCpp)
 # 链接 cpp-jwt 库
 #target_link_libraries(MyExecutable PRIVATE jwt)
 

@@ -578,3 +578,43 @@ events:
       Running the CXX compiler's linker: "/usr/bin/ld" "-v"
       GNU ld (GNU Binutils for Ubuntu) 2.38
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/share/cmake-3.29/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/share/cmake-3.29/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "/home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "/usr/local/lib/cmake/SQLiteCpp/SQLiteCppConfig.cmake:7 (find_dependency)"
+      - "CMakeLists.txt:20 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles/CMakeScratch/TryCompile-fJDc0M"
+      binary: "/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles/CMakeScratch/TryCompile-fJDc0M"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles/CMakeScratch/TryCompile-fJDc0M'
+        
+        Run Build Command(s): /home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_32284/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_32284.dir/build.make CMakeFiles/cmTC_32284.dir/build
+        gmake[1]: 进入目录“/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles/CMakeScratch/TryCompile-fJDc0M”
+        Building C object CMakeFiles/cmTC_32284.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_32284.dir/src.c.o -c /home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles/CMakeScratch/TryCompile-fJDc0M/src.c
+        Linking C executable cmTC_32284
+        /home/tiange/miniconda3/lib/python3.11/site-packages/cmake/data/bin/cmake -E cmake_link_script CMakeFiles/cmTC_32284.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_32284.dir/src.c.o -o cmTC_32284
+        gmake[1]: 离开目录“/home/tiange/Desktop/VQ-RNA-Back/build/CMakeFiles/CMakeScratch/TryCompile-fJDc0M”
+        
+      exitCode: 0
+...
