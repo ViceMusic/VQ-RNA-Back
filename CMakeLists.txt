@@ -17,7 +17,7 @@ include_directories(include)
 # 查找 OpenSSL 包
 find_package(OpenSSL REQUIRED)
 # 查找 SQLite3 库
-find_package(SQLite3 REQUIRED)
+find_package(SQLite3 REQUIRED PATHS /usr/share/cmake-3.22/Modules/FindSQLite3.cmake NO_DEFAULT_PATH)
 # 查找 SQLiteCpp 库
 find_package(SQLiteCpp REQUIRED)
 

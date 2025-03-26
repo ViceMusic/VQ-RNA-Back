@@ -654,7 +654,25 @@ sudo apt-get install libssl-dev
 
 在github上下载对应的库， 然后安装到了/usr/local目录下面
 
+### find_package的默认寻找路径为：
 
+这个函数的目的是寻找配置文件​（<PackageName>Config.cmake）或 ​模块文件​（Find<PackageName>.cmake）
+
+寻找环境变量<PackageName>_DIR
+
+一些默认的路径 比如SQLiteCpp这个库，寻找到cmake文件 /usr/local/lib/cmake
+
+比如一些常用的文件， 这样
+
+```
+/usr/lib/cmake/
+/usr/local/lib/cmake/
+/usr/share/cmake/Modules/
+/usr/local/share/cmake/Modules/
+```
+
+如果想要手动指定
+find_package(SQLite3 REQUIRED PATHS /path/to/sqlite3 NO_DEFAULT_PATH)
 
 问题在
 
@@ -662,3 +680,24 @@ CMake Error at CMakeLists.txt:37 (add_executable):
   Target "MyExecutable" links to target "SQLite3::SQLite3" but the target was
   not found.  Perhaps a find_package() call is missing for an IMPORTED
   target, or an ALIAS target is missing?
+
+
+递归查找文件的方式， 比如查询名称里面携带相关内容的东西
+find . -type f -name "*SQLite*"
+
+文件要求需要SQLite3Config.cmake 但是可能linux上apt下载的发行版不包括这个cmake文件
+
+
+
+下载 SQLite3 源码：
+wget https://www.sqlite.org/2023/sqlite-autoconf-3410200.tar.gz
+tar -xzf sqlite-autoconf-3410200.tar.gz
+cd sqlite-autoconf-3410200
+编译并安装：
+./configure --prefix=/usr/local
+make
+sudo make install
+检查 CMake 配置文件：
+find /usr/local -name "*SQLite3*.cmake"
+
+总之要重新下载一下就行了
