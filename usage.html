@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Seq Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 150vh;
+            background-color: rgb(16, 126, 100);
+            margin: 0;
+            overflow-y: auto;
+        }
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 50vw;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        input:focus {
+            border-color: #FFA500;
+            outline: none;
+            border-width: 2px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #FFA500;
+            border-radius: 5px;
+            border: #FFA500;
+            color: white;
+            font-size: 20px;
+        }
+        .timeout, .error {
+            color: #A52A2A;
+            margin-top: 10px;
+        }
+        .loading {
+            color: blue;
+            margin-top: 10px;
+        }
+        .bar {
+            width: 50px;
+            height: 30px;
+            background-color: lightgray;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .result-container {
+            display: flex;
+            margin: 20px;
+        }
+        .image-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        img {
+            max-width: 70vw;
+            max-height: 600px;
+            width: 70vw;
+            height: auto;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            overflow: hidden;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 7vh;
+            background-color: rgb(16, 126, 100);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .placeholder {
+            height: 7vh;
+        }
+        .content {
+            padding-top: 60px;
+            width: 100vw;
+            height: 200vh;
+        }
+        .bgColor {
+            background-color: rgb(16, 126, 100);
+            color: white;
+        }
+        .bubble {
+            position: absolute;
+            background-color: #FF6347;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            text-align: center;
+        }
+        .bubble2 {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            padding: 10px;
+        }
+        .bubble2 img {
+            max-width: 400px;
+            max-height: 500px;
+        }
+        #table-container {
+            width: 70vw; /* 宽度与图片一致 */
+            height: 700px; /* 固定高度 */
+            margin: 20px auto;
+            overflow-y: auto; /* 允许上下滑动 */
+            background-color: rgb(16, 126, 100);
+            padding: 10px;
+        }
+        /* 表格容器样式 */
+        .table-container {
+            width: 70vw; /* 宽度与图片一致 */
+            height: 700px; /* 固定高度 */
+            margin: 20px auto;
+            overflow-y: auto; /* 允许上下滑动 */
+            background-color: rgb(16, 126, 100);
+            padding: 10px;
+        }
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            min-width: 800px;
+            max-width: 800px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            color: black;
+            text-align: center;
+            background-color: white;
+            width: 10px;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #377F7F;
+            width: 10px;
+        }
+        /* 关闭按钮样式 */
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #888;
+        }
+        .close-btn:hover {
+            color: #000;
+        }
+        .header-cell{
+            width: 52px;
+            min-width: 52px;
+            max-width: 52px;
+
+        }
+        .header-button{
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size:24px;
+            height: 7vh;
+            box-sizing: border-box; /* 怪异盒模型 */
+            padding: 0 10px;
+        }
+        .header-button:hover{
+            color: #FFA500;
+            border-bottom: solid 2px;
+            border-bottom-color: #FFA500;
+            background-color: rgb(9, 78, 62);
+        }
+                /*设置超链接*/
+        a {
+            color: inherit; /* 继承父元素的文字颜色 */
+            text-decoration: none; /* 去掉下划线 */
+        }
+
+        /* 鼠标悬停时保持无下划线 */
+        a:hover {
+            text-decoration: none;
+        }
+        i{
+            padding: 0 5px;
+        }
+        #threejs-container {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+    <div class="container bgColor">
+        <div class="header">
+            <div style="margin-right: 75px">VQ-RNA</div>
+
+            <div class="header-button" id="introduction">
+                <i class="material-icons" style="font-size: 40px; ">home</i>
+
+                <a href="http://8.130.10.95:8000/">
+                introduction
+            </a></div>
+            <div class="header-button" id="usage">
+                <i class="material-icons" style="font-size: 40px; ">info</i>
+                <a href="http://8.130.10.95:8000/usage">
+                usage
+            </a></div>
+        </div>
+        <div class="bubble" id="errorBubble">sequence too short</div>
+        <div class="placeholder"></div>
+        <div class="content container bgColor">
+            <h1>Enter Sequence</h1>
+            <div class="result-container">
+                <div id="bar1" class="bar">Am</div>
+                <div id="bar2" class="bar">Cm</div>
+                <div id="bar3" class="bar">Gm</div>
+                <div id="bar4" class="bar">Um</div>
+                <div id="bar5" class="bar">m1A</div>
+                <div id="bar6" class="bar">m5C</div>
+                <div id="bar7" class="bar">m5U</div>
+                <div id="bar8" class="bar">m6A</div>
+                <div id="bar9" class="bar">m6Am</div>
+                <div id="bar10" class="bar">Ψ</div>
+            </div>
+            <input type="text" id="seqInput" placeholder="Enter your seq">
+            <div id="sequenceLength" style="margin: 10px;"></div>
+            <button id="submitButton">Submit</button>
+            <div id="timeoutMessage" class="timeout"></div>
+            <div id="loadingMessage" class="loading" style="display: none;">
+                <div id="threejs-container"  ></div>
+            </div>
+
+            <div id="errorMessage" class="error" style="display: none;"></div>
+
+
+            <!-- 表格容器 -->
+            <div id="table-container">
+
+            </div>
+
+            <div class="image-container">
+                <img id="imageDisplay" alt="Image from server" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let socket=new WebSocket('ws://8.130.10.95:8080');
+        const maxRetries = 5; // 最大重试次数
+        let retryCount = 0;   // 当前重试次数
+        const retryInterval = 3000; // 重试间隔时间（毫秒）
+        let timeoutId;
+
+        // 初始化 WebSocket 连接
+        socket.addEventListener('open', function (event) {
+                console.log('Connected to WebSocket server');
+                document.getElementById('timeoutMessage').textContent = '';
+                retryCount = 0; // 连接成功后重置重试次数
+            });
+
+
+            socket.addEventListener('error', function (event) {
+                console.error('WebSocket error:', event);
+                document.getElementById('timeoutMessage').textContent = 'WebSocket connection failed!';
+                document.getElementById('timeoutMessage').style.color = '#A52A2A';
+                // 直接重新连接
+
+            });
+
+            socket.addEventListener('message', function (event) {
+                console.log('Response from server:', event.data);
+                clearTimeout(timeoutId);
+                document.getElementById('loadingMessage').style.display = 'none';
+
+                const response = JSON.parse(event.data);
+                displayResults(response);
+            });
+
+        // 初始化连接
+
+
+
+        document.getElementById('submitButton').addEventListener('click', function () {
+            let seq = document.getElementById('seqInput').value;
+            const sequenceLength = seq.length;
+
+            document.getElementById('sequenceLength').textContent = `Sequence Length: ${sequenceLength}`;
+
+            if (sequenceLength < 51) {
+                var bubble = document.getElementById('errorBubble');
+                bubble.style.display = 'block';
+                bubble.style.top = '100px';
+                bubble.style.width = "50vw";
+                bubble.textContent = "sequence is too short !";
+
+                setTimeout(function () {
+                    bubble.style.display = 'none';
+                }, 3000);
+                return;
+            }
+            seq = seq.replace(/U/g, 'T');
+            const invalidChars = seq.replace(/[AGCT]/g, '');
+            if (invalidChars.length > 0) {
+                var bubble = document.getElementById('errorBubble');
+                bubble.style.display = 'block';
+                bubble.style.top = '100px';
+                bubble.style.width = "50vw";
+                bubble.textContent = "please input DNA sequence correctly";
+
+                setTimeout(function () {
+                    bubble.style.display = 'none';
+                }, 3000);
+                return;
+            }
+
+            socket.send(JSON.stringify({ seq: seq }));
+
+            document.getElementById('timeoutMessage').textContent = '';
+            document.getElementById('loadingMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            timeoutId = setTimeout(() => {
+                document.getElementById('timeoutMessage').textContent = 'Connection timed out';
+                document.getElementById('loadingMessage').style.display = 'none';
+            }, 30 * 60 * 1000);
+        });
+
+        const modNames = [
+            "Am", "Cm", "Gm", "Um", "m1A", "m5C", "m5U", "m6A", "m6Am", "Ψ"
+        ];
+
+        function generateTables(seq, details) {
+            const labels = ["Am", "Cm", "Gm", "Um", "m1A", "m5C", "m5U", "m6A", "m6Am", "Ψ"];
+            const container = document.getElementById('table-container');
+            let start = 1; // 起始碱基位置
+            const chunkSize = 50; // 每 50 个碱基生成一个表格
+
+            while (start <= details[details.length - 1][0]) {
+                const end = Math.min(start + chunkSize - 1, details[details.length - 1][0]); // 结束碱基位置
+                const table = document.createElement('table');
+
+                // 创建表头
+                const headerRow = document.createElement('tr');
+                const headerCell = document.createElement('th');
+                headerCell.textContent = `${start+24} - ${end+25}`;
+                headerCell.className = 'header-cell';
+                headerRow.appendChild(headerCell);
+
+                // 添加碱基列名
+                for (let i = start; i <= Math.ceil(end / 50) * 50; i++) {
+                    const th = document.createElement('th');
+                    if(i<=end){
+                        th.textContent = seq[(i - 1) % seq.length]
+                        th.style.width="14px"
+
+                    }else{
+                        th.textContent= "X"
+                        th.style.color="#888"
+                        th.style.width="14px"
+                    }
+                    headerRow.appendChild(th);
+                }
+                table.appendChild(headerRow);
+
+                // 添加修饰行
+                for (let modIndex = 0; modIndex < labels.length; modIndex++) {
+                    const row = document.createElement('tr');
+                    const modNameCell = document.createElement('th');
+                    modNameCell.textContent = labels[modIndex];
+                    row.appendChild(modNameCell);
+
+
+
+                    //每一行
+                    for (let i = start; i <= Math.ceil(end / 50) * 50; i++) {
+                        const td = document.createElement('td');
+                        // 检查是否有对应的修饰和碱基
+                        if (i <= end) {
+                            // 检查是否有对应的修饰和碱基
+                            const detail = details.find(([pos, mod]) => pos+1 === i && mod === modIndex + 1);
+                            if (detail) {
+                                td.textContent = detail[2]; // 显示碱基
+                                td.style.width="14px"
+                            }else{
+                                td.textContent = "X"; // 显示碱基
+                                td.style.color="white"
+                                td.style.width="14px"
+                            }
+                        } else {
+                            td.textContent = "X"; // 不足 50 列时补全空白列
+                            td.style.color="white"
+                            td.style.width="14px"
+                        }
+                        row.appendChild(td);
+                    }
+                    table.appendChild(row);
+                }
+
+                container.appendChild(table);
+                start += chunkSize; // 移动到下一个表格的起始位置
+            }
+        }
+
+
+        function displayResults(response) {
+            //重新获取一下内容
+            let seq = document.getElementById('seqInput').value;
+            let methArray;
+            var details;
+            if (typeof response.meth === 'string') {
+                try {
+                    methArray = JSON.parse(response.meth);
+                    details = JSON.parse(response.detail);
+
+                    console.log(details);
+
+                    generateTables(seq,details)
+                    // 生成表格内容
+                    /*const modalContent = document.getElementById("modal-content");
+                    details.forEach(detail => {
+                        const row = document.createElement("tr");
+                        const siteCell = document.createElement("td");
+                        const typeCell = document.createElement("td");
+                        const baseCell = document.createElement("td");
+
+                        siteCell.textContent = detail[0]; // 位点
+                        typeCell.textContent = labels[detail[1] - 1]; // 修饰类型
+                        baseCell.textContent = detail[2]; // 碱基
+
+                        row.appendChild(siteCell);
+                        row.appendChild(typeCell);
+                        row.appendChild(baseCell);
+                        modalContent.appendChild(row);
+                    });*/
+                } catch (error) {
+                    console.error('Error parsing meth:', error);
+                    methArray = [];
+                }
+            } else {
+                methArray = Array.isArray(response.meth) ? response.meth : [];
+            }
+
+
+            for (let i = 0; i < 10; i++) {
+                const bar = document.getElementById(`bar${i + 1}`);
+                if (methArray[i] == 1) {
+                    bar.style.backgroundColor = "#FFA500";
+                }
+            }
+
+            const imageDisplay = document.getElementById('imageDisplay');
+            if (response.image) {
+                imageDisplay.src = `data:image/png;base64,${response.image}`;
+                imageDisplay.style.display = 'block';
+            }
+        }
+    </script>
+     <script>
+            const container = document.getElementById('threejs-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(100, 100); // 设置渲染器大小为 100px × 100px
+            container.appendChild(renderer.domElement);
+
+            renderer.setClearColor(0x107E64); // 0x00ff00 是绿色的十六进制值
+            renderer.setClearAlpha(0); // 设置背景透明度为 0（完全透明）
+
+            const headGeometry = new THREE.SphereGeometry(3, 12, 12); // 低多边形球体
+            const headMaterial = new THREE.MeshBasicMaterial({ color: 0xFFA500, wireframe: true });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            scene.add(head);
+            camera.position.z = 5;
+            function animate() {
+                requestAnimationFrame(animate);
+                head.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            }
+
+            // 启动动画
+            animate();
+
+     </script>
+</body>
+</html>

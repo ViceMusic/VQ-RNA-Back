@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Seq Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(16, 126, 100);
+            margin: 0;
+            overflow-y: auto;
+            padding: 0;
+
+        }
+
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 7vh;
+            background-color: rgb(16, 126, 100);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .placeholder {
+            height: 7vh;
+        }
+
+
+        .header-button{
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size:24px;
+            height: 7vh;
+            box-sizing: border-box; /* 怪异盒模型 */
+            padding: 0 10px;
+        }
+        .header-button:hover{
+            color: #FFA500;
+            border-bottom: solid 2px;
+            border-bottom-color: #FFA500;
+            background-color: rgb(9, 78, 62);
+        }
+        /*设置超链接*/
+        a {
+            color: inherit; /* 继承父元素的文字颜色 */
+            text-decoration: none; /* 去掉下划线 */
+        }
+
+        /* 鼠标悬停时保持无下划线 */
+        a:hover {
+            text-decoration: none;
+        }
+        .footer{
+            height: 20vh;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background-color: black;
+            color: #cccccc;
+        }
+
+        /* 外层容器 */
+        .scroll-container {
+            height: 90vh; /* 高度为视口高度 */
+            overflow: hidden; /* 隐藏滚动条 */
+            overflow-y: scroll; /* 启用垂直滚动 */
+            scroll-snap-type: y mandatory; /* 启用垂直滚动吸附 */
+            -ms-overflow-style: none; /* 隐藏 IE 和 Edge 的滚动条 */
+            scrollbar-width: none; /* 隐藏 Firefox 的滚动条 */
+
+        }
+
+        /* 单个页面 */
+        .page {
+            height: 90vh; /* 每个页面高度为视口高度 */
+            scroll-snap-align: start; /* 滚动吸附到顶部 */
+
+            font-size: 2rem;
+            color: white;
+            width: 100vw;
+        }
+
+        /* 页面背景色 */
+        .page1 {
+            background-color: rgb(16, 126, 100);
+                        display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .page2 {
+            background-color: #EEEEEE;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .con-flex{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+        img{
+            height: 350px;
+            width: 600px;
+            justify-content: center;
+            align-items: center;
+        }
+        .info {
+            font-size: 14px;
+            height: 100%;
+            width: 600px;
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0 40px;
+        }
+        .info-button{
+            background-color: #377F7F;
+            color: #EEEEEE;
+            font-weight: bold;
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            margin: 10px;
+        }
+        .info-button:hover{
+            background-color: #FFA500;
+        }
+
+        /* 容器样式 */
+        .fade-in-text {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            color: #EEEEEE;
+            opacity: 0; /* 初始透明度为 0 */
+            animation: fadeIn 3s ease-in-out forwards; /* 应用动画 */
+        }
+
+        /* 浮现动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0; /* 初始透明度为 0 */
+            }
+            to {
+                opacity: 1; /* 最终透明度为 1 */
+            }
+        }
+        #threejs-container {
+            width: 400px;
+            height: 400px;
+            margin: 10px;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            transform: scale(0); /* 初始状态：缩小到 0 */
+            transform-origin: center; /* 从中心开始扩展 */
+            animation: scaleUp 1s ease-in-out forwards; /* 动画效果 */
+        }
+
+
+        /* 定义动画 */
+        @keyframes scaleUp {
+            0% {
+                transform: scale(0); /* 缩小到 0 */
+            }
+            100% {
+                transform: scale(1); /* 恢复到原始大小 */
+            }
+        }
+        /*星球代码*/
+        /* 公转的 div */
+        /* 星球样式 */
+
+
+
+
+        /* 大小变化动画 */
+        @keyframes scale {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.5);
+            }
+        }
+
+        /* 容器样式 */
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        i{
+            padding: 0 5px;
+        }
+        .item{
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            padding: 20px;
+
+            width: 20vw;
+            height: 40vh;
+            font-size: 14px;
+        }
+        .item1{
+            justify-content: space-between;
+
+        }
+        .item2{
+            justify-content: space-around;
+
+        }
+        .item-flex{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 3s ease-in-out infinite; /* 浮动动画 */
+            font-size: 18px;
+
+
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0); /* 初始位置 */
+            }
+            50% {
+                transform: translateY(-20px); /* 向上浮动 */
+            }
+        }
+
+        #vq-rna {
+            font-size: 48px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            gap: 8px; /* 字符间距 */
+        }
+
+        /* 高亮字符的样式 */
+        .highlight {
+            color: #FFA500;
+            transition: color 0.3s ease;
+        }
+        .item-icons{
+            font-size: 50px;
+        }
+
+
+
+
+
+
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+
+    <div class="header">
+        <div style="margin-right: 75px">VQ-RNA</div>
+
+        <div class="header-button" id="introduction">
+            <i class="material-icons" style="font-size: 40px;">home</i>
+
+            <a href="http://8.130.10.95:8000/">
+            introduction
+        </a></div>
+        <div class="header-button" id="usage">
+            <i class="material-icons" style="font-size: 40px; ">info</i>
+            <a href="http://8.130.10.95:8000/usage">
+            usage
+        </a></div>
+    </div>
+    <div class="placeholder"></div>
+
+
+
+
+
+    <div class="scroll-container">
+        <div class="page page1 container">
+            <div class="item item1">
+                <div class="item-flex">
+
+                    <div>
+                        <h3> · Intuitive Visualization: </h3>
+                        <p> Support for the visualization of prediction performance across 10 common RNA modification types.</p>
+                    </div>
+                    <i class="material-icons" style="font-size: 50px;color: #EEEEEE">science</i>
+
+                </div>
+
+                <div class="item-flex">
+
+                    <div>
+                       <h3>· Advanced Deep Learning Methods: </h3>
+                        <p>  Multi-layer convolutional neural networks, VQ-VAE, Transformer, and more.</p>
+                    </div>
+                    <i class="material-icons" style="font-size: 50px;color: aqua">smart_toy</i>
+
+                </div>
+
+                <div class="item-flex">
+
+                    <div>
+                        <h3> · Biologically meaningful interpretability:</h3>
+                        <p>  VQ-RNA can identify informative motif patterns and construct an interpretable feature spectrum for each type of RNA modification.</p>
+                    </div>
+                    <i class="material-icons" style="font-size: 50px;color: #FFA500">biotech</i>
+
+                </div>
+
+
+
+
+            </div>
+            <div style="display: flex; flex-direction: column;justify-content: center;align-items: center;">
+                <div id="threejs-container" ></div>
+                <div style="font-size: 48px" id="vq-rna">VQ-RNA</div>
+                <button class="info-button" style="background-color: #FFA500" onclick="window.location.href='http://8.130.10.95:8000/usage'">
+                    GET START >
+                </button>
+                <script>
+                    const textElement = document.getElementById('vq-rna');
+                    const text = textElement.textContent; // 获取文本内容
+                    textElement.innerHTML = ''; // 清空内容
+
+                    // 将每个字符包裹在 span 中
+                    for (let i = 0; i < text.length; i++) {
+                        const span = document.createElement('span');
+                        span.textContent = text[i];
+                        textElement.appendChild(span);
+                    }
+
+                    const spans = textElement.querySelectorAll('span');
+                    let currentIndex = 0;
+
+                    // 高亮函数
+                    function highlightNext() {
+                        // 移除当前字符的高亮
+                        spans[currentIndex].classList.remove('highlight');
+
+                        // 移动到下一个字符
+                        currentIndex = (currentIndex + 1) % spans.length;
+
+                        // 高亮下一个字符
+                        spans[currentIndex].classList.add('highlight');
+                    }
+
+                    // 初始化高亮
+                    spans[currentIndex].classList.add('highlight');
+
+                    // 设置定时器，每隔 1 秒切换高亮字符
+                    setInterval(highlightNext, 500);
+                </script>
+            </div>
+
+            <div class="item item2">
+                <div class="item-flex">
+                    <i class="material-icons" style="font-size: 50px;color: deeppink">terminal</i>
+                    <div>
+                        <h3> · One-Stop Solution: </h3>
+                        <p> End-to-end model training, optimization, and prediction.</p>
+                    </div>
+                </div>
+                <div class="item-flex">
+                    <i class="material-icons" style="font-size: 50px;color: wheat">laptop</i>
+                    <div>
+                        <h3> · Optimized Hardware: </h3>
+                        <p> VQ-RNA are fully GPU-based, significantly accelerating training time.</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="page page2 con-flex">
+            <div class="info">
+                <h3> What is VQ-RNA?</h3>
+                <p>
+                    VQ-RNA is a user-friendly interpretable deep-learning platform for RNA sequence modification analysis, such as RNA modification sites prediction and motif recognition based on In silico saturation mutagenesis (ISM). VQ-RNA supports site prediction for ten common RNA modifications (Am, Cm, Gm, Um, m1A, m5C, m5U, m6A, m6Am, Ψ) and offers interpretability analyses. We support modification site prediction for RNA sequences longer than 51 bp. To achieve this, we employ a sliding window approach, starting predictions from the 25th position onward. Due to the constraints of the model architecture and the need to ensure result reliability, predictions cannot be made for the first and last 25 positions, and only the intermediate region is presented. We identify key bases or regions with higher importance in the model by simulating mutations, aligning them with biologically relevant motifs, and visualizing the results.
+                </p>
+                <p>Our platform is continuously evolving,
+                    and we plan to introduce a file upload feature that allows batch processing of
+                    multiple sequences for prediction and motif identification.
+                    This enhancement is expected to improve motif recognition accuracy, as it has been shown
+                    to be more reliable when based on multiple sequences. Additionally,
+                    we will also incorporate a TF-IDF-based RNA modification specificity analysis,
+                    providing a clear and quantitative visualization of the distinctions among different RNA modification types.
+                </p>
+                <button class="info-button" onclick="window.location.href='http://8.130.10.95:8000/usage'">
+                    GET START >
+                </button>
+            </div>
+            <img src="zhuye.svg" id="zhuye"/>
+
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Github: @1gao2</p>
+        <p>Author: WenJia Gao</p>
+    </div>
+
+    <script>
+         // JavaScript 实现滚动逻辑
+        const scrollContainer = document.querySelector('.scroll-container');
+        let isScrolling = false;
+
+        scrollContainer.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                isScrolling = true;
+                setTimeout(() => {
+                    const scrollTop = scrollContainer.scrollTop;
+                    const pageHeight = window.innerHeight;
+
+                    // 如果滚动到第二页底部，启用全局滚动
+                    if (scrollTop >= pageHeight) {
+                        scrollContainer.style.overflow = 'hidden';
+                        document.querySelector('.global-scroll').style.overflowY = 'auto';
+                    } else {
+                        scrollContainer.style.overflow = 'auto';
+                        document.querySelector('.global-scroll').style.overflowY = 'hidden';
+                    }
+
+                    isScrolling = false;
+                }, 10);
+            }
+        });
+    </script>
+     <script>
+            const container = document.getElementById('threejs-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(400, 400); // 设置渲染器大小为 100px × 100px
+            container.appendChild(renderer.domElement);
+
+            renderer.setClearColor(0x107E64); // 0x00ff00 是绿色的十六进制值
+            renderer.setClearAlpha(0); // 设置背景透明度为 0（完全透明）
+
+            const headGeometry = new THREE.SphereGeometry(3, 12, 12); // 低多边形球体
+            const headMaterial = new THREE.MeshBasicMaterial({ color: 0xFFA500, wireframe: true });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            scene.add(head);
+            camera.position.z = 5;
+            function animate() {
+                requestAnimationFrame(animate);
+                head.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            }
+
+            // 启动动画
+            animate();
+
+     </script>
+     <!--DNA螺旋-->
+
+</body>
+</html>

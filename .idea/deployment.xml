@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="privacy" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="docker">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/workspace" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="privacy">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="weilab">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/tg/workspace" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

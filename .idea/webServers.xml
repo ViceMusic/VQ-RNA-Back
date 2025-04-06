@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9103dcb0-ca17-465a-a79f-56a23d1a1e64" name="weilab">
+        <fileTransfer accessType="SFTP" host="211.87.232.152" port="9522" sshConfigId="4f01e5ec-ff2a-4e74-a505-c99f1a6c2c9d" sshConfig="tg@211.87.232.152:9522 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="5514ed8f-f702-4003-bba2-b91356b6e7c7" name="docker">
+        <fileTransfer accessType="SFTP" host="211.87.232.152" port="65422" sshConfigId="b9c43508-fd71-45b8-a79a-f819916f5a13" sshConfig="root@211.87.232.152:65422 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="9718b14a-5514-42cd-85d1-5c210232844d" name="privacy">
+        <fileTransfer accessType="SFTP" host="8.130.10.95" port="22" sshConfigId="d12566d5-c5ec-453c-af8c-9ec3e0ea0910" sshConfig="root@8.130.10.95:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
