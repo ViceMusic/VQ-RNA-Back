@@ -297,7 +297,9 @@ def expose_fasta(fasta_name, client, server, message):
     # 还有前端, 差不多就这些了吧
 
 # 当接收到消息时调用的回调函数
-def message_received(client, server, message):
+
+#原函数名message_received
+def message_handler(message):
     # print("server接收到消息:", message)
     try:
         # 解析 JSON 数据, 并得到对象名为data
@@ -311,14 +313,14 @@ def message_received(client, server, message):
             seq = data.get("body")
             #expose_sentence(seq, client, server, message)  # 执行单一的内容
             # 传入线程池执行对应函数
-            pool.submit(expose_sentence, seq, client, server, message)
+            pool.submit(expose_sentence, seq, message)
         #传输的内容为文件
         elif type == "file":
             file_base64 = data.get("body")# 获取64位文件编码
             filename=fileControl.save_base64_to_file(file_base64)# 将其保存在File中, 并且返回文件名字
             # expose_fasta(filename, client, server, message)
             # 传入线程池执行对应的函数
-            pool.submit(expose_fasta, filename, client, server, message)
+            pool.submit(expose_fasta, filename, message)
             # 删除文件
             # fileControl.delete_file(filename)
 
@@ -346,7 +348,8 @@ def message_received(client, server, message):
             }
             print("登录请求的检查", response_data)
             response = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
-            server.send_message(client, response)
+            #server.send_message(client, response)
+            return response
 
 
 
@@ -367,7 +370,8 @@ def message_received(client, server, message):
             }
             print("注册的检查", response_data)
             response = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
-            server.send_message(client, response)
+            #server.send_message(client, response)
+            return response
 
         # 检查该用户下的所有任务序列
         # 传入参数(type, email)
@@ -387,23 +391,32 @@ def message_received(client, server, message):
                 "tasks": tasks
             }
             response = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
-            server.send_message(client, response)
+            #server.send_message(client, response)
+            return response
 
         else:
             print("invalid request")
 
-    except ConnectionResetError:
-        print(f"连接被重置，客户端 ID: {client['id']}")
+    #except ConnectionResetError:
+    #    print(f"连接被重置，客户端 ID: {client['id']}")
     except json.JSONDecodeError:
         print("无效数据!")
+    except:
+        print("意外错误")
+        return 400
 
 
 # 创建 WebSocket 服务器
+
+# 处理改为http,ws启用暂时关闭
+'''
 server = WebsocketServer(host='0.0.0.0', port=8080)
 server.set_fn_new_client(new_client)
 server.set_fn_message_received(message_received)
 print("WebSocket 服务器正在运行，访问 ws://localhost:8080")
 server.run_forever()
+'''
+
 
 # 上传文件以及seq的请求内容
 """
@@ -451,3 +464,23 @@ email:"xxx"
 type:single/mutil/login/register/user_tasks 前面这些是单独的处理 notice是需要全局通报的特殊消息
 
 """
+app = Flask(__name__)
+
+@app.route('/api/req', methods=['POST'])
+def handle_data():
+    # 判断 content-type
+    content_type = request.headers.get('Content-Type')
+
+    if content_type == 'application/json':
+        data = request.get_json()
+        response = message_handler(message=json.dumps(data))
+        print(f"Received JSON: {data}")
+        if response == 400:
+            return "发生问题",400
+        else:
+            return response
+    else:
+        return 'Unsupported POST', 400
+
+if __name__ == '__main__':
+    app.run(debug=True)
