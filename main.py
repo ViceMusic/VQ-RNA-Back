@@ -1,4 +1,3 @@
-
 import torch
 import torch.nn.functional as F
 import sys
@@ -14,8 +13,6 @@ import base64
 from PIL import Image
 from io import BytesIO
 
-
-
 sys.path.append(os.path.abspath("./models/models"))  # 添加 `models` 目录到 Python 路径
 from mymodel import Lucky
 from mymodel_51 import Lucky as Lucky_51
@@ -30,7 +27,7 @@ from mymodel_1001 import Lucky as Lucky_1001
 
 sys.path.append(os.path.abspath("./"))  # 加载绘制motif的文件
 from motif import draw
-from FileControl import  FileControl
+from FileControl import FileControl
 from Utils import *
 from Pool import SimpleThreadPool
 from DataBase import Database
@@ -38,17 +35,16 @@ from DataBase import Database
 # 设置设备类型, 有GPU就用GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-
 # 加载不同尺寸的模型,虽然除了51以外基本没啥用了, 不过还是加载上吧
-model_51=Lucky_51().to(device)
-model_101=Lucky_101().to(device)
-model_201=Lucky_201().to(device)
-model_301=Lucky_301().to(device)
-model_401=Lucky_401().to(device)
-model_501=Lucky_501().to(device)
-model_701=Lucky_701().to(device)
-model_901=Lucky_901().to(device)
-model_1001=Lucky_1001().to(device)
+model_51 = Lucky_51().to(device)
+model_101 = Lucky_101().to(device)
+model_201 = Lucky_201().to(device)
+model_301 = Lucky_301().to(device)
+model_401 = Lucky_401().to(device)
+model_501 = Lucky_501().to(device)
+model_701 = Lucky_701().to(device)
+model_901 = Lucky_901().to(device)
+model_1001 = Lucky_1001().to(device)
 # 定义映射选择类
 model_classes = {
     51: Lucky_51,
@@ -60,17 +56,15 @@ model_classes = {
     701: Lucky_701,
     901: Lucky_901,
     1001: Lucky_1001,
-    
+
 }
 
-
 # 生成文件调用对象
-fileControl=FileControl()
+fileControl = FileControl()
 # 生成线程池对象
-pool=SimpleThreadPool(num_threads=5)
+pool = SimpleThreadPool(num_threads=5)
 # 生成数据库操作对象
-db=Database()
-
+db = Database()
 
 
 # 文件返回对象
@@ -94,6 +88,7 @@ def image_to_base64(image_path):
     img.save(buffered, format="PNG")
     return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
+
 # 直接将一整个字符串转化为张量格式
 def encode_dna_tensor(sequence):
     # 碱基映射规则
@@ -102,6 +97,8 @@ def encode_dna_tensor(sequence):
     encoded = [mapping[base] for base in sequence]
     # 转换为 PyTorch 张量，并调整形状为 (1, len(sequence))
     return torch.tensor(encoded).unsqueeze(0)
+
+
 # 面向审稿人编程(划掉), 用来检测是否发生了某些不对的情况
 def pan(site, type_des):
     # 定义修饰与碱基的对应关系
@@ -132,16 +129,17 @@ def pan(site, type_des):
     # 如果都匹配，返回 True
     return True
 
+
 # 对于一个序列进行预测的方法
 def predict_window(model, seq):
-    print("进行序列预测, 序列长度:",len(seq))
+    print("进行序列预测, 序列长度:", len(seq))
     container = Container_message()  # 生成相关的对象
-    char_seq=seq
+    char_seq = seq
     length = len(seq)
     seq = encode_dna_tensor(seq)  # 准备模型的输入
-    meth = [0,0,0,0,0,0,0,0,0,0]  # 判断发生了何种甲基化
-    index_meth = []               # 发生甲基化的类型
-    detail=[]                     # 三元组[发生甲基化位点, 碱基类型, 发生的修饰类型]
+    meth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  # 判断发生了何种甲基化
+    index_meth = []  # 发生甲基化的类型
+    detail = []  # 三元组[发生甲基化位点, 碱基类型, 发生的修饰类型]
 
     # 这次只需要加载模型即可, 不需要进行模型选择了
 
@@ -156,9 +154,9 @@ def predict_window(model, seq):
 
         # 对第index种类修饰进行预测, 遍历整个序列
         for bit in range(length - 50):
-            out, atts, vq_loss, x_recon, perplexity = model(seq[:,bit:bit+50])
+            out, atts, vq_loss, x_recon, perplexity = model(seq[:, bit:bit + 50])
             if out[0, 0].item() < out[0, 1].item():  # 发生了这种甲基化
-                if pan(char_seq[bit + 25],index): # 还要判断一下这种甲基化是否合理
+                if pan(char_seq[bit + 25], index):  # 还要判断一下这种甲基化是否合理
                     detail.append([bit + 25, index, char_seq[bit + 25]])
                     if index not in index_meth:
                         index_meth.append(index)  # 如果之前没发生过这种甲基化就要进行一下记录了
@@ -167,23 +165,26 @@ def predict_window(model, seq):
     # 封装具体的信息
     container.meth = meth
     container.index_meth = index_meth
-    container.detail=detail
+    container.detail = detail
 
     return container
 
+
 def new_client(client, server):
     print("新的客户端连接, 暂时不支持多线程运行:", client['id'])
+
 
 def expose_sentence(seq, client, server, message):
     # 获取用户信息
     data = json.loads(message)
     email = data.get("email")
 
-    print("为什么",len(seq))
+    print("为什么", len(seq))
 
     # 检查, 如果长度不够或者内容没有, 就返回错误信息
     if len(seq) < 51:
-        response=json.dumps({"type":"notice","message": "error","content":"incorrect length of sequence, please > 51 characters"})
+        response = json.dumps(
+            {"type": "notice", "message": "error", "content": "incorrect length of sequence, please > 51 characters"})
         server.send_message(client, response)
         return
 
@@ -193,50 +194,51 @@ def expose_sentence(seq, client, server, message):
     # 否则, 如果序列长度>51, 则自动加载51这个模型.
     model = model_classes[51]().to(device)
     container = predict_window(model, seq)  # 进行预测
-    svgName=draw(seq, container.index_meth)  # 进行画图,并且得到对应的文件名称
+    svgName = draw(seq, container.index_meth)  # 进行画图,并且得到对应的文件名称
 
-    print("检查",svgName)
+    print("检查", svgName)
 
     # 画完的图像会保存在对应的svg里面, 转化完成以后, 就删除这个文件, 就当临时出现了一次
-    base = image_to_base64("./Files/"+svgName)
-    fileControl.delete_file(svgName) # 在转化为base64以后, 再次删除内容
+    base = image_to_base64("./Files/" + svgName)
+    fileControl.delete_file(svgName)  # 在转化为base64以后, 再次删除内容
 
     # 准备返回体内容
     response_data = {
         "message": "OK",
-        "type": "single", # 代表单一的序列, 代表无论detail也好, meth也好, 都是针对单一seq的
-        "seqs": seq, # 返回原本的信号类型, 如果是文件就需要别的东西了
+        "type": "single",  # 代表单一的序列, 代表无论detail也好, meth也好, 都是针对单一seq的
+        "seqs": seq,  # 返回原本的信号类型, 如果是文件就需要别的东西了
         "meth": json.dumps(container.meth),  # 将容器的方法转换为 JSON 字符串
         "image": base,
         "detail": json.dumps(container.detail)
     }
-    response_json = json.dumps(response_data) # json转化为字符串格式, 方便websocket进行传输
+    response_json = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
     db.update_task(taskid, "completed", response_json)  # 任务执行结束, 输入库中
     server.send_message(client, response_json)
+
 
 def expose_fasta(fasta_name, client, server, message):
     # 获取用户信息
     data = json.loads(message)
     email = data.get("email")
 
-    fasta_path=fileControl.find_file(fasta_name)
-    #对fasta进行处理的方法不太一样
-    seqList= fasta_to_seq_list(fasta_path) # 先根据fasta进行获取, 得到seq序列
-    print("读取到的序列数目为",len(seqList))
+    fasta_path = fileControl.find_file(fasta_name)
+    # 对fasta进行处理的方法不太一样
+    seqList = fasta_to_seq_list(fasta_path)  # 先根据fasta进行获取, 得到seq序列
+    print("读取到的序列数目为", len(seqList))
     # 读取完fasta以后就删除文件
     fileControl.delete_file(fasta_name)
 
     # 检查, 如果长度不够或者内容没有, 就返回错误信息
-    if len(seqList)==0 or len(seqList[0]) < 51:
-        response=json.dumps({"type":"notice","message": f"error","content":"incorrect length of sequence, please > 51 characters"})
+    if len(seqList) == 0 or len(seqList[0]) < 51:
+        response = json.dumps(
+            {"type": "notice", "message": f"error", "content": "incorrect length of sequence, please > 51 characters"})
         server.send_message(client, response)
         return
 
-
     # 准备内容
-    meths=[0,0,0,0,0,0,0,0,0,0]
-    details=[]
-    meth_index=[]
+    meths = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    details = []
+    meth_index = []
 
     print(email)
     _, userid = db.user_existed(email)  # 查询得到用户id
@@ -251,26 +253,23 @@ def expose_fasta(fasta_name, client, server, message):
         # 更新甲基化种类
         print(container.meth)
         for i in range(len(container.meth)):
-            if container.meth[i]==1 and meths[i]==0:
-                meths[i]=1
+            if container.meth[i] == 1 and meths[i] == 0:
+                meths[i] = 1
         # 增加具体细节
-        details.append(container.detail)# 这样就不需要index了
+        details.append(container.detail)  # 这样就不需要index了
 
     # d
     for index in range(len(meths)):
-        if meths[index]==1:
-            meth_index.append(index+1)
+        if meths[index] == 1:
+            meth_index.append(index + 1)
 
     print("绘图中")
     # 绘图, 并且获取文件名称
-    filename=draw(seqList[0],meth_index)
+    filename = draw(seqList[0], meth_index)
     # 获取为base64
     base = image_to_base64("./Files/" + filename)
     # 在转化为base64以后, 再次删除内容
     fileControl.delete_file(filename)
-
-
-
 
     # 准备返回体内容
     response_data = {
@@ -284,7 +283,7 @@ def expose_fasta(fasta_name, client, server, message):
 
     print(response_data)
     response_json = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
-    db.update_task(taskid,"completed",response_json)
+    db.update_task(taskid, "completed", response_json)
 
     # 向前端发送消息, 结束
     server.send_message(client, response_json)
@@ -296,9 +295,10 @@ def expose_fasta(fasta_name, client, server, message):
     # 测试一下后端安全模式
     # 还有前端, 差不多就这些了吧
 
+
 # 当接收到消息时调用的回调函数
 
-#原函数名message_received
+# 原函数名message_received
 def message_handler(message):
     # print("server接收到消息:", message)
     try:
@@ -308,16 +308,16 @@ def message_handler(message):
 
         print(type)
 
-        #传输的内容为seq
+        # 传输的内容为seq
         if type == "seq":
             seq = data.get("body")
-            #expose_sentence(seq, client, server, message)  # 执行单一的内容
+            # expose_sentence(seq, client, server, message)  # 执行单一的内容
             # 传入线程池执行对应函数
             pool.submit(expose_sentence, seq, message)
-        #传输的内容为文件
+        # 传输的内容为文件
         elif type == "file":
-            file_base64 = data.get("body")# 获取64位文件编码
-            filename=fileControl.save_base64_to_file(file_base64)# 将其保存在File中, 并且返回文件名字
+            file_base64 = data.get("body")  # 获取64位文件编码
+            filename = fileControl.save_base64_to_file(file_base64)  # 将其保存在File中, 并且返回文件名字
             # expose_fasta(filename, client, server, message)
             # 传入线程池执行对应的函数
             pool.submit(expose_fasta, filename, message)
@@ -331,24 +331,24 @@ def message_handler(message):
 
             # 准备相关内容
             email = data.get("email")
-            exist,userid=db.user_existed(email)
-            mes=""
-            if exist :
+            exist, userid = db.user_existed(email)
+            mes = ""
+            if exist:
                 mes = "OK"
             else:
                 mes = "User does not"
-            info = {"userid":userid,"email": email}
+            info = {"userid": userid, "email": email}
 
             # 构建信息体并且发送消息
             response_data = {
                 "type": type,
                 "exist": exist,
                 "mes": mes,
-                "info":info
+                "info": info
             }
             print("登录请求的检查", response_data)
             response = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
-            #server.send_message(client, response)
+            # server.send_message(client, response)
             return response
 
 
@@ -359,7 +359,7 @@ def message_handler(message):
         elif type == "register":
             # 准备相关内容
             email = data.get("email")
-            log, userid, notice = db.add_user(email) # 找个log似乎查询不到
+            log, userid, notice = db.add_user(email)  # 找个log似乎查询不到
             info = {"userid": userid, "email": email}
 
             # 构建信息体并且发送消息
@@ -370,7 +370,7 @@ def message_handler(message):
             }
             print("注册的检查", response_data)
             response = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
-            #server.send_message(client, response)
+            # server.send_message(client, response)
             return response
 
         # 检查该用户下的所有任务序列
@@ -382,7 +382,7 @@ def message_handler(message):
             email = data.get("email")
             tasks = db.check_task(email)
 
-            print("一共查询到了",len(tasks),"条任务")
+            print("一共查询到了", len(tasks), "条任务")
 
             # 构建信息体并且发送消息
             response_data = {
@@ -391,13 +391,13 @@ def message_handler(message):
                 "tasks": tasks
             }
             response = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
-            #server.send_message(client, response)
+            # server.send_message(client, response)
             return response
 
         else:
             print("invalid request")
 
-    #except ConnectionResetError:
+    # except ConnectionResetError:
     #    print(f"连接被重置，客户端 ID: {client['id']}")
     except json.JSONDecodeError:
         print("无效数据!")
@@ -416,7 +416,6 @@ server.set_fn_message_received(message_received)
 print("WebSocket 服务器正在运行，访问 ws://localhost:8080")
 server.run_forever()
 '''
-
 
 # 上传文件以及seq的请求内容
 """
@@ -439,7 +438,6 @@ body: seq字符串/base64文件
 'pending', 'in_progress', 'completed'
 """
 
-
 # 以下是登录, 注册, 以及返回任务内容
 """
 type:"login"
@@ -456,7 +454,6 @@ type:"user_tasks"
 email:"xxx"
 """
 
-
 # 要想办法防止出问题, 全都放到try-catch里面
 
 # 返回体:
@@ -466,6 +463,12 @@ type:single/mutil/login/register/user_tasks 前面这些是单独的处理 notic
 """
 app = Flask(__name__)
 
+
+@app.route('/test', methods=['GET'])
+def test():
+    return 'Hello World'
+
+
 @app.route('/api/req', methods=['POST'])
 def handle_data():
     # 判断 content-type
@@ -473,14 +476,15 @@ def handle_data():
 
     if content_type == 'application/json':
         data = request.get_json()
-        response = message_handler(message=json.dumps(data))
         print(f"Received JSON: {data}")
+        response = message_handler(message=json.dumps(data))
         if response == 400:
-            return "发生问题",400
+            return "发生问题", 400
         else:
             return response
     else:
         return 'Unsupported POST', 400
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='8.130.10.95', debug=True, port=8080)
