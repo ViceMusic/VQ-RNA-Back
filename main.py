@@ -170,11 +170,11 @@ def predict_window(model, seq):
     return container
 
 
-def new_client(client, server):
+def new_client(client):
     print("新的客户端连接, 暂时不支持多线程运行:", client['id'])
 
 
-def expose_sentence(seq, client, server, message):
+def expose_sentence(seq, message):
     # 获取用户信息
     data = json.loads(message)
     email = data.get("email")
@@ -185,8 +185,8 @@ def expose_sentence(seq, client, server, message):
     if len(seq) < 51:
         response = json.dumps(
             {"type": "notice", "message": "error", "content": "incorrect length of sequence, please > 51 characters"})
-        server.send_message(client, response)
-        return
+        #server.send_message(client, response)
+        return response
 
     _, userid = db.user_existed(email)  # 查询得到用户id
     _, taskid, _ = db.add_task(userid, " ", "in_progress")  # 获得任务信息
@@ -213,10 +213,11 @@ def expose_sentence(seq, client, server, message):
     }
     response_json = json.dumps(response_data)  # json转化为字符串格式, 方便websocket进行传输
     db.update_task(taskid, "completed", response_json)  # 任务执行结束, 输入库中
-    server.send_message(client, response_json)
+    #server.send_message(client, response_json)
+    return response_json
 
 
-def expose_fasta(fasta_name, client, server, message):
+def expose_fasta(fasta_name, message):
     # 获取用户信息
     data = json.loads(message)
     email = data.get("email")
@@ -232,8 +233,8 @@ def expose_fasta(fasta_name, client, server, message):
     if len(seqList) == 0 or len(seqList[0]) < 51:
         response = json.dumps(
             {"type": "notice", "message": f"error", "content": "incorrect length of sequence, please > 51 characters"})
-        server.send_message(client, response)
-        return
+        #server.send_message(client, response)
+        return response
 
     # 准备内容
     meths = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -286,8 +287,8 @@ def expose_fasta(fasta_name, client, server, message):
     db.update_task(taskid, "completed", response_json)
 
     # 向前端发送消息, 结束
-    server.send_message(client, response_json)
-
+    #server.send_message(client, response_json)
+    return response_json
     # 还需要写的()
     # 处理多个的部分
     # 文件接收模块
@@ -461,9 +462,9 @@ email:"xxx"
 type:single/mutil/login/register/user_tasks 前面这些是单独的处理 notice是需要全局通报的特殊消息
 
 """
+from flask_cors import CORS  # Import CORS
 app = Flask(__name__)
-
-
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 @app.route('/test', methods=['GET'])
 def test():
     return 'Hello World'
@@ -487,4 +488,4 @@ def handle_data():
 
 
 if __name__ == '__main__':
-    app.run(host='8.130.10.95', debug=True, port=8080)
+    app.run(host='0.0.0.0', debug=True, port=8080)
