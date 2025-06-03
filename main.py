@@ -338,6 +338,7 @@ def message_handler(message):
                 mes = "OK"
             else:
                 mes = "User does not"
+                _, userid, _ = db.add_user(email)
             info = {"userid": userid, "email": email}
 
             # 构建信息体并且发送消息
