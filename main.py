@@ -315,6 +315,12 @@ def message_handler(message):
             # expose_sentence(seq, client, server, message)  # 执行单一的内容
             # 传入线程池执行对应函数
             pool.submit(expose_sentence, seq, message)
+
+
+            # 新增代码1===========================
+            return "Processing seq request",200  # 返回处理中的信息, 让前端知道正在处理
+        
+
         # 传输的内容为文件
         elif type == "file":
             file_base64 = data.get("body")  # 获取64位文件编码
@@ -324,6 +330,12 @@ def message_handler(message):
             pool.submit(expose_fasta, filename, message)
             # 删除文件
             # fileControl.delete_file(filename)
+
+
+            # 新增代码1===========================
+            return "Processing file request",200  # 返回处理中的信息, 让前端知道正在处理
+        
+
 
         # 登录请求
         # 传入参数为(type, email)
@@ -338,7 +350,7 @@ def message_handler(message):
                 mes = "OK"
             else:
                 mes = "User does not"
-                _, userid, _ = db.add_user(email)
+                _, userid, _ = db.add_user(email)  # 多了这一行
             info = {"userid": userid, "email": email}
 
             # 构建信息体并且发送消息
